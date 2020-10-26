@@ -8,13 +8,14 @@ import Icon from '../Icon/Icon.js';
 
 class Column extends React.Component {
     state = {
-        cards: this.props.cards || [],
+    cards: this.props.cards || [],
       }
     
     static propTypes = {
-        title: PropTypes.node,
+        title: PropTypes.node.isRequired,
         cards: PropTypes.array,
-        icon: PropTypes.node,
+        id: PropTypes.string,
+        icon: PropTypes.string,
         addCard: PropTypes.func,
         
     }
@@ -29,32 +30,32 @@ class Column extends React.Component {
               {
                 key: state.cards.length ? state.cards[state.cards.length - 1].key + 1 : 0,
                 title,
+                icon: 'list-alt',
+                cards: [],
               },
             ],
           }
         ));
       }
-    render() {
-        const { title, icon, cards, addCard } = this.props;
+      render() {
+        const { title, icon } = this.props;
         return (
-        <section className={styles.component}>
+          <section className={styles.component}>
             <h3 className={styles.title}>
-            <span className={styles.icon}>
+              <span className={styles.icon}>
                 <Icon name={icon} />
-            </span>
-          {title}
-        </h3>
-        <div className={styles.cards}>
-          {cards.map((cardData) => (
-            <Card key={cardData.id} {...cardData} />
-          ))}
-        </div>
-        <div className={styles.creator}>
-          <Creator text={settings.cardCreatorText} action={addCard} />
-        </div>
-           
-            
-        </section>
+              </span>
+              {title}
+            </h3>
+            <div className={styles.cards}>
+              {this.state.cards.map(({ key, ...columnProps }) => (
+                <Card key={key} {...columnProps} />
+              ))}
+            </div>
+            <div className={styles.creator}>
+              <Creator text={settings.cardCreatorText} action={title => this.addCard(title)} />
+            </div>  
+          </section>
     )
 }
 }
