@@ -30,17 +30,17 @@ class List extends React.Component {
             key: state.columns.length ? state.columns[state.columns.length-1].key+1 : 0,
             title,
             icon: 'list-alt',
-            cards: []
-          }
-        ]
+            cards: [],
+          },
+        ],
       }
     ));
   }
-    render() {
+  render() {
     return (
       <section className={styles.component}>
         <Hero titleText={this.props.title}
-        image={this.props.image}/>
+          image={this.props.image}/>
         <div className={styles.description}>
           {ReactHtmlParser(this.props.description)}
         </div>
@@ -53,7 +53,7 @@ class List extends React.Component {
           <Creator text={settings.columnCreatorText} action={title => this.addColumn(title)}/>
         </div>
       </section>
-    )
+    );
   }
 }
 
